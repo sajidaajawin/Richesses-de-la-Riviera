@@ -99,12 +99,13 @@ function ContactUs() {
                       onChange={handleInputChange}
                     ></textarea>
                   </div>
-                  <a href="#_" class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#C08261] rounded-xl group">
-<span class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#C08261] rounded group-hover:-mr-4 group-hover:-mt-4">
-<span class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-</span>
-<span class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#C08261]  rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
-<span class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">Submit</span>
+                  <a href="#_" class="/AllProducts" class="relative px-5 py-3 overflow-hidden font-medium text-[#C08261] bg-gray-100 border border-gray-100 rounded-lg shadow-inner group ">
+<span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-[#C08261] group-hover:w-full ease"></span>
+<span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-[#C08261] group-hover:w-full ease"></span>
+<span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#C08261] group-hover:h-full ease"></span>
+<span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#C08261] group-hover:h-full ease"></span>
+<span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-[#C08261] opacity-0 group-hover:opacity-100"></span>
+<span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">Submit</span>
 </a>
                 </form>
               </div>

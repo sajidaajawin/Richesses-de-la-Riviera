@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Swal from 'sweetalert';
+// import Swal from 'sweetalert';
 
 
-function Card({ category, product_name, price, product_image, isAuthenticated }) {
+function Card({ category, product_name, price, image,  }) {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,10 +16,10 @@ function Card({ category, product_name, price, product_image, isAuthenticated })
         setCart(storedCart);
   
         // Fetch data from your API
-        const response = await axios.get('https://fakestoreapi.com/products');
+        const response = await axios.get("https://loocalhost:8000/products");
         // Log the data array specifically
         console.log('API Data:', response.data);
-  
+        
         // Set loading to false once data is fetched
         setLoading(false);
       } catch (error) {
@@ -32,43 +32,43 @@ function Card({ category, product_name, price, product_image, isAuthenticated })
     fetchData();
   }, []);
 
-  const handleAddToCartClick = () => {
-    if (!isAuthenticated) {
-      // If the user is not logged in, show a login alert
-      Swal({
-        title: 'Login Required',
-        text: 'You need to log in before adding items to the cart.',
-        icon: 'warning',
-        buttons: ['Cancel', 'Log In'],
-      }).then((result) => {
-        if (result) {
-          // Redirect the user to the login page or open your login modal
-          // You might need to implement the actual redirection or modal opening logic
-          console.log('Redirecting to login...');
-        }
-      });
-    } else {
-      // If the user is logged in, show a success alert
-      Swal({
-        title: 'Added to Cart',
-        text: 'The item has been added to your cart.',
-        icon: 'success',
-      });
+  // const handleAddToCartClick = () => {
+  //   // if (!isAuthenticated) {
+  //   //   // If the user is not logged in, show a login alert
+  //   //   Swal({
+  //   //     title: 'Login Required',
+  //   //     text: 'You need to log in before adding items to the cart.',
+  //   //     icon: 'warning',
+  //   //     buttons: ['Cancel', 'Log In'],
+  //   //   }).then((result) => {
+  //   //     if (result) {
+  //   //       // Redirect the user to the login page or open your login modal
+  //   //       // You might need to implement the actual redirection or modal opening logic
+  //   //       console.log('Redirecting to login...');
+  //   //     }
+  //   //   });
+  //   // } else {
+  //   //   // If the user is logged in, show a success alert
+  //   //   Swal({
+  //   //     title: 'Added to Cart',
+  //   //     text: 'The item has been added to your cart.',
+  //   //     icon: 'success',
+  //   //   });
 
-      // Add the item to the cart in local storage
-      const newproduct = { product_name, price, product_image };
-      const newCart = [...cart, newproduct];
-      setCart(newCart);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-    }
-  };
+  //     // Add the item to the cart in local storage
+  //     const newproduct = { product_name, price, image };
+  //     const newCart = [...cart, newproduct];
+  //     setCart(newCart);
+  //     localStorage.setItem('cart', JSON.stringify(newCart));
+  //   }
+  // };
 
   return (
     <div className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl mb-6">
       <div className="relative">
-      <img className="h-72 w-72" src={product_image} alt="Card Image" />
+      <img src= {image} className="h-72 w-72"  alt="Card Image" />
         <div className="absolute top-3 right-3">
-          <button onClick={handleAddToCartClick}>
+          <button >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -88,7 +88,7 @@ function Card({ category, product_name, price, product_image, isAuthenticated })
       </div>
       <div className="px-4 py-3 w-72">
         <span className="text-gray-400 mr-3 uppercase text-xs">{category}</span>
-        <Link to={""}>
+        <Link to={"/details"}>
           <p className="text-lg font-medium text-black truncate block capitalize">
             {product_name}
           </p>
@@ -98,7 +98,7 @@ function Card({ category, product_name, price, product_image, isAuthenticated })
             {price}
           </p>
           <div className="ml-auto">
-            <button onClick={handleAddToCartClick}>
+            <button >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
