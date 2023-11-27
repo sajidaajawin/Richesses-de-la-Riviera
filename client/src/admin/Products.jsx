@@ -15,22 +15,23 @@ const ProductDashboard = () => {
 
   useEffect(() => {
     // Fetch products from your API endpoint
-    axios.get('http://localhost:8000/products')
+    axios
+      .get("http://localhost:8000/products")
       .then((response) => {
         console.log(response.data); // Log the entire response to see its structure
-        const fetchedProducts = response.data|| []; // Check for 'products' property
+        const fetchedProducts = response.data || []; // Check for 'products' property
         setProducts(fetchedProducts);
         setSearchResults(fetchedProducts);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  
+
   const handleSearch = () => {
     const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(filteredProducts);
     setPageNumber(0); // Reset the page number when searching
@@ -47,12 +48,16 @@ const ProductDashboard = () => {
   };
 
   const handleSaveEdit = (editedProduct) => {
-    console.log('hi',editedProduct.product_id);
     // Send the edited product data to your API using Axios
+    console.log(editedProduct);
     axios
-      .put(`http://localhost:8000/updateproduct/${editedProduct.product_id}`, editedProduct)
+      .put(
+        `http://localhost:8000/updateproduct/${editedProduct.product_id}`,
+        editedProduct.formData
+      )
       .then((response) => {
         // Handle the successful response
+        console.log(response);
         alert(`Successfully saved product: ${editedProduct.product_name}`);
         // Close the edit form
         setEditingProduct(null);
@@ -66,28 +71,28 @@ const ProductDashboard = () => {
       });
   };
 
-  const handleAddProduct = (newProduct) => {
-    axios
-      .post('http://localhost:8000/product', newProduct)
-      .then((response) => {
-        // Successfully added the new product
-        // You can also fetch the updated product list if needed
-        alert(`Added product: ${newProduct.product_name}`);
-        setIsAddProductFormVisible(false); // Close the form
-        console.log(response.data)
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error("Error adding product:", error);
-        // You might want to show an error message to the user
-        // Handle the error according to your application's requirements
-      });
-  };
+  // const handleAddProduct = (newProduct) => {
+  //   axios
+  //     .post("http://localhost:8000/product", newProduct)
+  //     .then((response) => {
+  //       // Successfully added the new product
+  //       // You can also fetch the updated product list if needed
+  //       alert(`Added product: ${newProduct.product_name}`);
+  //       setIsAddProductFormVisible(false); // Close the form
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors here
+  //       console.error("Error adding product:", error);
+  //       // You might want to show an error message to the user
+  //       // Handle the error according to your application's requirements
+  //     });
+  // };
 
   const handleDeleteProduct = (productId) => {
     // Send a DELETE request to remove the product using Axios
     axios
-      .put(``)
+      .put(`http://localhost:8000/deleteproduct/${productId}`)
       .then((response) => {
         // Handle the successful response
         alert("Product deleted successfully");
@@ -161,7 +166,8 @@ const ProductDashboard = () => {
                 <td className="p-2 text-sm">{product.product_name}</td>
                 <td className="p-2 text-sm">{product.category_id}</td>
                 <td className="p-2 text-sm">${product.price}</td>
-                <td className="p-2 text-sm">{product.image}</td>
+                {/* <td className="p-2 text-sm">{product.product_img}</td> */}
+                <img src={product.product_img} alt="" />
                 <td className="p-2 text-sm">{product.product_dis}</td>
                 <td className="p-2 text-sm">
                   <div className="flex justify-center">
@@ -206,7 +212,7 @@ const ProductDashboard = () => {
       )}
       {isAddProductFormVisible && (
         <AddProductForm
-          onSave={handleAddProduct}
+          // onSave={handleAddProduct}
           onClose={() => setIsAddProductFormVisible(false)}
         />
       )}

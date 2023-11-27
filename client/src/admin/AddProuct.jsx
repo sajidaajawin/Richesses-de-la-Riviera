@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const AddProductForm = ({ onSave, onClose }) => {
   const [productData, setProductData] = useState({
     product_name: "",
     product_dis: "",
     price: 0,
-
     category_id: "",
-    image:"",
   });
+
+  const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,12 +18,30 @@ const AddProductForm = ({ onSave, onClose }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setProductData({ ...productData, image: file });
+    setImage(file);
   };
 
-  const handleSave = () => {
-    onSave(productData);
-    onClose(); // Close the form after saving
+  const handleSave = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("product_name", productData.product_name);
+      formData.append("product_dis", productData.product_dis);
+      formData.append("price", productData.price);
+      formData.append("category_id", productData.category_id);
+      formData.append("image", image);
+
+      await axios.post("http://localhost:8000/product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // If successful, you can redirect the user or perform other actions
+      console.log("Product added successfully");
+      onSave(); // Assuming onSave is a callback to handle success
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -47,15 +66,15 @@ const AddProductForm = ({ onSave, onClose }) => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="product_detail"
+            htmlFor="product_dis"
             className="block text-sm font-medium text-gray-600"
           >
             Product Detail
           </label>
           <input
             type="text"
-            id="product_detail"
-            name="product_detail"
+            id="product_dis"
+            name="product_dis"
             value={productData.product_dis}
             onChange={handleChange}
             className="w-full border p-2 rounded-md"
@@ -128,7 +147,7 @@ const AddProductForm = ({ onSave, onClose }) => {
         <div className="mt-4 flex justify-end">
           <button
             className="px-4 py-2 bg-[#C08261] text-white rounded-lg mr-2"
-            onClick={handleSave}
+           onClick={handleSave}
           >
             Save
           </button>

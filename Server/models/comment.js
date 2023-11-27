@@ -79,7 +79,6 @@ function update(
   return db.query(queryText, values);
 }
 
-
 function getCommentsByUserAndProduct(userId, productId) {
   const queryText =
     "SELECT * FROM comments WHERE user_id = $1 AND product_id = $2";

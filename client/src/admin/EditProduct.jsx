@@ -2,18 +2,29 @@ import React, { useState } from "react";
 
 const ProductForm = ({ product, onEdit, onClose }) => {
   const [editedProduct, setEditedProduct] = useState(product);
-  const [imageFile, setImageFile] = useState(null);
+  const [image, setImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log("Before setImageFile:", imageFile);
-    setImageFile(file);
-    console.log("After setImageFile:", imageFile);
+    setImage(file);
   };
 
   const handleEdit = () => {
-    onEdit(editedProduct, imageFile);
-    onClose();
+    const formData = new FormData();
+    formData.append("product_id", editedProduct.product_id);
+    formData.append("product_name", editedProduct.product_name);
+    formData.append("product_dis", editedProduct.product_dis);
+    formData.append("price", editedProduct.price);
+    formData.append("category_id", editedProduct.category_id);
+    formData.append("image", image);
+
+    const data = {
+      formData,
+      product_id: editedProduct.product_id,
+    };
+    
+    onEdit(data);
+    // onClose();
   };
 
   return (
@@ -37,7 +48,6 @@ const ProductForm = ({ product, onEdit, onClose }) => {
                 ...editedProduct,
                 product_name: e.target.value,
               })
-              
             }
             className="mt-1 p-2 w-full border rounded-md"
           />
@@ -135,8 +145,8 @@ const ProductForm = ({ product, onEdit, onClose }) => {
           </label>
           <input
             type="file"
-            id="image"
-            name="image"
+            id="product_img"
+            name="product_img"
             accept="image/*"
             onChange={handleImageChange}
             className="mt-1 p-2 w-full border rounded-md"

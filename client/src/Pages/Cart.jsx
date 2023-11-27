@@ -3,11 +3,10 @@ import axios from 'axios';
 import Counter from '../Components/Counter';
 import { Link } from 'react-router-dom';
 
-
-
 const Cart = () => {
- const [cartProduct, setCartProduct] = useState([]);
+  const [cartProduct, setCartProduct] = useState([]);
   const [total, setTotal] = useState();
+  axios.defaults.headers.common['Authorization'] = `${localStorage.getItem('token')}`;
 
   useEffect(() => {
     // Fetch cart products from local storage when the component mounts
@@ -15,15 +14,25 @@ const Cart = () => {
     setCartProduct(storedCart);
 
     // Fetch total from the server or calculate it based on your logic
-    axios.get('http://localhost:5000/shoppingcart')
-      .then((response) => {
-        setTotal(response.data.total[0].sum);
-        console.log('hi');
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-  }, []);
+    const productId = storedCart.map((product) => product.id).join(',');
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/getitems");
+        setTotal(response.data);
+        console.log('hilooooo', response.data);
+      } catch (error) {
+        console.error('An error occurred during data fetch:', error);
+      }
+    };
+
+    fetchData();
+
+    // Cleanup function
+    return () => {
+      // Empty cleanup logic
+    };
+  }, [/* dependencies */]);
 
   // Update local storage whenever cartProduct changes
   useEffect(() => {
@@ -54,10 +63,15 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (id) => {
-    console.log(id);
-    axios.put(`/${id}`)
+    // console.log(id);
+    const removedProduct = cartProduct.find((item) => item.id === id);
+  
+    axios
+      .post('http://localhost:8000/items', {
+        productId: id,
+        amount: removedProduct.price * removedProduct.quantity,
+      })
       .then((response) => {
-      
         const updatedCart = cartProduct.filter((item) => item.id !== id);
         setCartProduct(updatedCart);
       })
@@ -65,6 +79,8 @@ const Cart = () => {
         console.error('An error occurred:', error);
       });
   };
+  
+
 
   return (
     <section className="h-full  py-12 sm:py-16 lg:py-20">
@@ -80,16 +96,16 @@ const Cart = () => {
                 <div className="flow-root">
                   <ul className="-my-8">
                     {cartProduct.map((product) => (
-                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0" key={product.id}>
+                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0" key={product.product_id}>
                         <div className="shrink-0">
-                          <img className="h-24 w-24 max-w-full rounded-lg object-cover" src="/" alt="" />
+                          <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.product_img} alt="" />
                         </div>
 
                         <div className="relative flex flex-1 flex-col justify-between">
                           <div className="sm:col-gap-5 sm:grid sm:grid-cols-2">
                             <div className="pr-8 sm:pr-5">
-                              <p className="text-base font-semibold text-gray-900">{product.name}</p>
-                              <p className="mt-1 text-xs text-gray-700">{product.counts}</p>
+                              <p className="text-base font-semibold text-gray-900">{product.product_name}</p>
+                              <p className="mt-1 text-xs text-gray-700">{product.quantity}</p>
                             </div>
 
                             <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
@@ -104,7 +120,7 @@ const Cart = () => {
                           </div>
 
                           <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                            <button type="button" onClick={() => handleRemoveItem(product.id)} className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                            <button type="button" onClick={() => handleRemoveItem(product.product_id)} className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
                               <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                               </svg>

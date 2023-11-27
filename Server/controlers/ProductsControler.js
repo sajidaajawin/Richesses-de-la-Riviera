@@ -124,19 +124,14 @@ const deleteproduct = async (req, res) => {
 };
 
 const updateproduct = async (req, res) => {
-  // const url = res.locals.site;
-
+  const product_img = res.locals.site;
+  // const imagePath = req.file.path; // This assumes the Multer middleware is used
+  console.log("product_img😜");
+  console.log(product_img);
+  console.log("product_img😜");
   const blog_id = req.params.id;
-  const {
-    product_name,
-    category_id,
-    price,
-    user_id,
-    
-    product_img,
-    product_dis,
-    is_deleted,
-  } = req.body;
+  const { product_name, category_id, price, user_id, product_dis, is_deleted } =
+    req.body;
   try {
     const result = await products.updateproduct(
       blog_id,

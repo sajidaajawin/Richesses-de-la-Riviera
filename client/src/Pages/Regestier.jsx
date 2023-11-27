@@ -45,6 +45,9 @@ const RegisterForm = () => {
       try {
         const response = await axios.post("http://localhost:8000/register", formData);
         console.log(response.data.message);
+          // const user = response.data.user;
+      // const token = response.data.token;
+      // localStorage.setItem("token", token);
         Swal({
           icon: 'success',
           title: 'Registration Successful!',

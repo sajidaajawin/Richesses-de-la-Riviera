@@ -7,12 +7,14 @@ import Contact from './Pages/ContactUs';
 import Categories from './Components/Categories';
 import LoginForm from './Pages/Login';
 import RegisterForm from './Pages/Regestier';
-import AllCourses from './Pages/AllCourses';
-import CoursesDetails from './Pages/CoursesDetails';
 import Payment from './Pages/Payment';
 import Cart from './Pages/Cart';
 import UserProfile from './Pages/UserProfile';
 import YourComponent from "./admin/Sidebar"
+import NotFound from './Pages/NotFound';
+import AllBlogs from './Pages/AllBlogs';
+import BlogsDetails from './Pages/BlogsDetails';
+
 
 
 const App = () => {
@@ -26,12 +28,14 @@ const App = () => {
         <Route path='/Categories' element={<Categories/>} />
         <Route path='/login' element={<LoginForm/>} />
         <Route path='/register' element={<RegisterForm/>} />
-        <Route path='/allcourses' element={<AllCourses/>} />
-        <Route path='/courses/:id' element={<CoursesDetails />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/userprofile' element={<UserProfile />} />
-        <Route exact path="/admin" element={<YourComponent />} />
+        <Route path="/admin" element={<YourComponent />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='/allblogs' element={<AllBlogs />} />
+        <Route path="/blogsdetails/:id" element={<BlogsDetails />} />
+        {/* <Route path='/payment' element={<PaymentForm />} /> */}
       </Routes>
     </Router>
   );
