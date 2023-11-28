@@ -5,10 +5,10 @@ const SECRET_KEY = "issa";
 const authenticateToken = async (req, res, next) => {
   // console.log(req.user)
   //   console.log(req);
-  const token = req.headers.authorization;
+  const token = req.headers.authorization
 
   // const token = req.headers.cookie;
-  console.log("😜😜😜😜😜😜😜😜😜😜😜😜");
+  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",req.header.Authorization);
 
   // const auth = token.split("=")[1].trim();
 
@@ -21,7 +21,7 @@ const authenticateToken = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
     // req.user = await User.findById(decoded.userId);
-
+// console.log(decoded)
     if (!decoded.user_id) {
       return res
         .status(401)
@@ -33,7 +33,7 @@ const authenticateToken = async (req, res, next) => {
     console.log(error);
     return res
       .status(401)
-      .json({ success: false, message: "Unauthorized: Invalid token" });
+      .json("Unauthorized: Invalid token" );
   }
 };
 

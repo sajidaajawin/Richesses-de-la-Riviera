@@ -16,7 +16,7 @@ const additem = async (req, res) => {
 
 
 const GetItem =async(req ,res)=>{
-    const user_id=req.user
+    const user_id= req.user
 
     try {
         const GetItem = await cart.GetItem(user_id)

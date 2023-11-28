@@ -16,7 +16,7 @@ const ProductDashboard = () => {
   useEffect(() => {
     // Fetch products from your API endpoint
     axios
-      .get("http://localhost:7000/products")
+      .get("http://localhost:8000/products")
       .then((response) => {
         console.log(response.data); // Log the entire response to see its structure
         const fetchedProducts = response.data || []; // Check for 'products' property
@@ -71,23 +71,23 @@ const ProductDashboard = () => {
       });
   };
 
-  // const handleAddProduct = (newProduct) => {
-  //   axios
-  //     .post("http://localhost:8000/product", newProduct)
-  //     .then((response) => {
-  //       // Successfully added the new product
-  //       // You can also fetch the updated product list if needed
-  //       alert(`Added product: ${newProduct.product_name}`);
-  //       setIsAddProductFormVisible(false); // Close the form
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors here
-  //       console.error("Error adding product:", error);
-  //       // You might want to show an error message to the user
-  //       // Handle the error according to your application's requirements
-  //     });
-  // };
+  const handleAddProduct = (newProduct) => {
+    axios
+      .post("http://localhost:8000/product", newProduct)
+      .then((response) => {
+        // Successfully added the new product
+        // You can also fetch the updated product list if needed
+        alert(`Added product: ${newProduct.product_name}`);
+        setIsAddProductFormVisible(false); // Close the form
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error("Error adding product:", error);
+        // You might want to show an error message to the user
+        // Handle the error according to your application's requirements
+      });
+  };
 
   const handleDeleteProduct = (productId) => {
     // Send a DELETE request to remove the product using Axios

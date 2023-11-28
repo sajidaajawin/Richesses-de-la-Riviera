@@ -116,7 +116,7 @@ const google = async (req, res) => {
         const user = existUser.rows[0];
 
         const token = jwt.sign(
-          { user_id: user.user_id, username: user.username },
+          { user_id: user.user_id, username: user.username ,role: user.role },
           key
         );
 

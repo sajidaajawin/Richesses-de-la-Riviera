@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-function Card({ id, category, product_name, price, image }) {
+function Card({ id, rating  , product, price, image }) {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +34,7 @@ function Card({ id, category, product_name, price, image }) {
   const handleAddToCartClick = () => {
     try {
       // Add the item to the cart in local storage
-      const newProduct = { id, product_name, price, image };
+      const newProduct = { id,rating, product, price, image };
       const newCart = [...cart, newProduct];
       setCart(newCart);
       localStorage.setItem('cart', JSON.stringify(newCart));
@@ -71,13 +71,17 @@ function Card({ id, category, product_name, price, image }) {
           </div>
         </div>
         <div className="px-4 py-3 w-72">
-          <span className="text-gray-400 mr-3 uppercase text-xs">{category}</span>
+          {/* <span className="text-gray-400 mr-3 uppercase text-xs">{category}</span> */}
           <p className="text-lg font-medium text-black truncate block capitalize">
-            {product_name}
+            {product}
           </p>
           <div className="flex items-center">
-            <p className="text-lg font-medium text-black cursor-auto my-3">
+          <p className="text-lg font-medium text-black cursor-auto my-3">
               {price}
+            </p>
+
+            <p className="text-lg font-medium text-red cursor-auto my-3">
+              {rating}
             </p>
             <div className="ml-auto">
               <button>

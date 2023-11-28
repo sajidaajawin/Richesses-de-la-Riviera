@@ -5,7 +5,7 @@ import Card from './Card';
 
 function Cards() {
   const [products, setProducts] = useState([]);
-
+console.log("first",products)
   useEffect(() => {
     axios
       .get("http://localhost:8000/products")
@@ -30,8 +30,12 @@ function Cards() {
       <div className="p-24 flex flex-wrap items-center justify-center">
         {products.map((product) => (
           <Card 
-            key={product.id}
-            product={product}
+            key={product.product_id}
+            product={product.product_name}
+            
+            price={product.price}
+            image={product.product_img}
+            rating={product.product_rating}
           />
         ))}
       </div>

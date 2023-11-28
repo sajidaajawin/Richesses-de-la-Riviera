@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
+
 import swal from 'sweetalert';
 
 
@@ -22,7 +23,7 @@ function Details() {
 
   const handleAddToCart = () => {
     const count = quantity;
-    Axios.post(`http://localhost:8000/cart/add`, {
+    Axios.post(`http://localhost:8000/items`, {
       productId: id,
       quantity: count,
     })
