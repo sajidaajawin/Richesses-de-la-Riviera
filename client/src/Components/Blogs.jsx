@@ -37,9 +37,14 @@ const Blogs = () => {
     <section className="py-10">
       <h1 className="mb-12 text-center font-sans text-3xl font-bold text-[#C08261]">Featured Blogs</h1>
       <div className="flex justify-center mt-4">
-      <Link to="allblogs">
-        <button className="bg-[#C08261] text-white px-4 py-2 rounded-full shadow-sm">View More</button>
-      </Link>
+      <Link to="/allblogs" class="/AllProducts" className ="relative px-5 py-3 overflow-hidden font-medium text-[#C08261] bg-gray-100 border border-gray-100 rounded-lg shadow-inner group ">
+<span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-[#C08261] group-hover:w-full ease"></span>
+<span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-[#C08261] group-hover:w-full ease"></span>
+<span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#C08261] group-hover:h-full ease"></span>
+<span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-[#C08261] group-hover:h-full ease"></span>
+<span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-[#C08261] opacity-0 group-hover:opacity-100"></span>
+<span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">View More</span>
+</Link>
     </div>
       <div className="mx-auto grid max-w-screen-lg justify-center px-4 sm:grid-cols-2 sm:gap-4 sm:px-8 md:grid-cols-3">
         {blog.map((blogs) => (

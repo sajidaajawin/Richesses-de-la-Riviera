@@ -16,7 +16,7 @@ const ProductDashboard = () => {
   useEffect(() => {
     // Fetch products from your API endpoint
     axios
-      .get("http://localhost:8000/products")
+      .get("http://localhost:7000/products")
       .then((response) => {
         console.log(response.data); // Log the entire response to see its structure
         const fetchedProducts = response.data || []; // Check for 'products' property

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
+import CustomPagination from "../Components/CustomPagination";
 import Card from "../Components/Card";
 
 const AllProducts = () => {
@@ -162,18 +162,11 @@ const AllProducts = () => {
               />
             ))}
           </div>
-          <ReactPaginate
-            previousLabel={"Previous"}
-            nextLabel={"Next"}
-            breakLabel={"..."}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          />
+          <CustomPagination
+          currentPage={pageNumber + 1} // Assuming pageNumber is zero-based
+          totalPages={pageCount}
+          onPageChange={handlePageClick}
+        />
         </div>
       </div>
     </div>

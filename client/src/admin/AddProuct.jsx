@@ -20,6 +20,7 @@ const AddProductForm = ({ onSave, onClose }) => {
     const file = e.target.files[0];
     setImage(file);
   };
+  axios.defaults.headers.common['Authorization'] = `${localStorage.getItem('token')}`;
 
   const handleSave = async () => {
     try {
@@ -30,7 +31,7 @@ const AddProductForm = ({ onSave, onClose }) => {
       formData.append("category_id", productData.category_id);
       formData.append("image", image);
 
-      await axios.post("http://localhost:8000/product", formData, {
+      await axios.post("http://localhost:7000/product", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

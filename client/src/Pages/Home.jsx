@@ -22,7 +22,7 @@ const Home = () => {
       <Categories />
       <Cards />
       < Courses />
-      {/* < UserProfile /> */}
+ 
       < Blogs />
       < Footer />
     </div>

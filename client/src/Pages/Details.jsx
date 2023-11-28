@@ -115,7 +115,7 @@ function Details() {
         <button
   type="button"
   onClick={handleAddToCart}
-  className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+  className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-[#C08261] bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-[#E2C799]"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
